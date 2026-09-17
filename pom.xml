@@ -15,6 +15,7 @@
         <javalin.version>7.2.3</javalin.version>
         <jackson.version>2.22.2</jackson.version>
         <kotlin.version>2.4.20</kotlin.version>
+        <sqlite-jdbc.version>3.53.4.0</sqlite-jdbc.version>
         <junit.version>5.13.4</junit.version>
         <dependency-check.ossindex.enabled>false</dependency-check.ossindex.enabled>
     </properties>
@@ -39,7 +40,7 @@
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.50.3.0</version>
+            <version>${sqlite-jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
