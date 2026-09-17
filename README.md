@@ -42,7 +42,7 @@ src/main/java/ru/itmo
 ```bash
 curl -i -X POST http://localhost:7070/auth/register \
   -H 'Content-Type: application/json' \
-  -d '{"login":"student","password":"StrongPassword"}'
+  -d '{"login":"student","password":"StrongPass123"}'
 ```
 
 Успешный ответ — `201 Created`:
@@ -65,7 +65,7 @@ curl -i -X POST http://localhost:7070/auth/register \
 ```bash
 curl -i -X POST http://localhost:7070/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"login":"student","password":"StrongPassword"}'
+  -d '{"login":"student","password":"StrongPass123"}'
 ```
 
 Успешный ответ — `200 OK`:
