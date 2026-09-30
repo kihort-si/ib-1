@@ -42,16 +42,6 @@ jobs:
             target/spotbugsXml.xml
           if-no-files-found: warn
 
-      - name: Validate NVD API key
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        shell: bash
-        run: |
-          if [[ -z "${NVD_API_KEY}" ]]; then
-            echo "::error title=Missing NVD API key::Add NVD_API_KEY as a repository Actions secret."
-            exit 1
-          fi
-
       - name: Calculate Dependency-Check cache key
         id: odc-cache-key
         shell: bash
@@ -66,14 +56,13 @@ jobs:
           restore-keys: |
             odc-${{ runner.os }}-v12-
 
-      - name: Update vulnerability database
-        env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+      - name: Seed or refresh vulnerability database
+        if: steps.odc-cache.outputs.cache-hit != 'true'
         run: >-
           mvn --batch-mode --no-transfer-progress
           org.owasp:dependency-check-maven:update-only
           -DdataDirectory="${{ github.workspace }}/.dependency-check-data"
-          -DnvdApiKeyEnvironmentVariable=NVD_API_KEY
+          -DnvdDatafeedUrl=https://dependency-check.github.io/DependencyCheck_Builder/nvd_cache/nvdcve-{0}.json.gz
           -DnvdValidForHours=24
 
       - name: Save Dependency-Check database
