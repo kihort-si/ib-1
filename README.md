@@ -138,3 +138,21 @@ statement.setString(1, login);
 - Секрет подписи читается из `JWT_SECRET` и валидируется: длина должна быть не меньше 32 символов. Секрет не хранится в исходном коде.
 - Middleware применяется ко всем маршрутам `/api/*`, извлекает заголовок `Authorization: Bearer ...`, проверяет подпись, issuer и срок действия токена. Обработчик контроллера запускается только после успешной проверки.
 - Ответы содержат `Cache-Control: no-store`, чтобы токены и приватные данные не сохранялись промежуточными кэшами.
+
+## Отчёты SAST и SCA
+
+Проверки автоматически запускаются в GitHub Actions при каждом `push` и создании `pull request`.
+
+![Успешный запуск Security Scan в GitHub Actions](docs/security/github-actions-run.jpg)
+
+### SpotBugs (SAST)
+
+Отчёт статического анализа: предупреждений не обнаружено.
+
+![Отчёт SpotBugs](docs/security/spotbugs-report.png)
+
+### OWASP Dependency-Check (SCA)
+
+Отчёт проверки зависимостей: известных уязвимостей не обнаружено.
+
+![Отчёт OWASP Dependency-Check](docs/security/dependency-check-report.png)
